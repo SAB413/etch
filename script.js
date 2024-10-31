@@ -1,32 +1,49 @@
 const body = document.querySelector("body");
-let SIZE=50  //  will make this user definable later
+const paintstr = "black";
+let SIZE=20  //  will make this user definable later
+let mousePressed = false;
+//SetupBoard();
 
-SetupBoard();
+// listen for a mouseclick anywhere on the board and paint if mouse button is down
+const squares = document.querySelector("#board_div");
+squares.addEventListener('mouseover', (e) => {
+    if (mousePressed) e.target.style.backgroundColor = paintstr;
+});
+squares.addEventListener("mousedown", (e) => {
+    e.target.style.backgroundColor = paintstr;
+    mousePressed = true;
+});
+squares.addEventListener("mouseup", () => {
+    mousePressed = false;
+});
 
-// listen for a mouseclick anywhere on the board
-const squares = document.querySelector(".board");
-squares.addEventListener('mouseover', paintSquare);
 
+
+
+let btn = document.getElementById('reset_board');
+let size = document.getElementById('dimn');
+btn.onclick = () => {
+    if (size.value <= 0 || size.value >63) return; 
+    SIZE = size.value;
+    SetupBoard(); 
+}
 
 
 /* ======================= */
 
-function paintSquare(e)
-{
-    // working but need to test for out of bounds etc.
-    
-    console.log(e);
-    console.log(e.target.id)
-    e.target.style.backgroundColor = "red";
-}
 
 function SetupBoard() {
     let i=0;
     let j=0;
     let divid="";
+    let lengthstr="";
 
-    const boarddiv = document.createElement("div");
-    boarddiv.setAttribute("class","board");
+    const boarddiv = document.getElementById('board_div');
+    // remove all the child divs - in case being called for 2nd time
+    boarddiv.innerHTML = '';
+    console.log(boarddiv.clientWidth);
+    lengthstr = boarddiv.clientWidth / SIZE + "px";
+    console.log(lengthstr);
 
     for (i=0;i<SIZE;i++) {
         // setup div for row 1
@@ -42,14 +59,19 @@ function SetupBoard() {
             divid = "sq-"+i+"-"+j;
             div.setAttribute("id",divid);
             div.setAttribute("class","square");
-            div.style.width = "20px";
-            div.style.height = "20px";
+            
+            div.style.width = lengthstr;
+            div.style.height = lengthstr;
+            
+            
+            //div.style.width = toString(500/SIZE) + "px";
+            //div.style.height = toString(500/SIZE) + "px";
             console.log("sqdiv:"+divid)
             rowdiv.appendChild(div);
         }
         boarddiv.appendChild(rowdiv);
     }
-    body.appendChild(boarddiv);
+    //body.appendChild(boarddiv);
 }
 
 /* sample code to borrow
