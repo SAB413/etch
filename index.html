@@ -9,21 +9,22 @@
   </head>
  
   <body>
-    <div id="page1">
-
-      <div id="btn_div">
-        <label for="dimn">Board size:</label>
-        <input type="number" name="dimn" id="dimn" style="width:50px">
-        <button id="reset_board">Reset Board</button>
-      </div>
-      
-      <div id="board_div">
-          <h1>Drawing board...</h1>   
-      </div>
-      
-    </div>  
     
-
-
+    <div id="page1">
+      
+      <div id="btn_div">
+        <h1 class="lhs">Let's sketch...</h1> 
+        <div class="lhs">
+          <label class="label" for="dimn">Board size:</label>
+          <input type="number" name="dimn" id="dimn" style="width:50px" value="20">
+          <button id="reset_board">Reset</button>
+        </div>
+        <div class="lhs">
+          <label class="label" for="pem">Pen Colour:</label>
+          <input type="color" id="pencolour" name="pen" value="#e66465" />
+        </div>
+      </div>
+      <div id="board_div"></div>
+    </div>
   </body>
 </html>

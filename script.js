@@ -1,25 +1,24 @@
 const body = document.querySelector("body");
-const paintstr = "black";
-let SIZE=20  //  will make this user definable later
+let SIZE=20
 let mousePressed = false;
-//SetupBoard();
+let penclr = document.getElementById('pencolour');
+SetupBoard();
 
 // listen for a mouseclick anywhere on the board and paint if mouse button is down
 const squares = document.querySelector("#board_div");
 squares.addEventListener('mouseover', (e) => {
-    if (mousePressed) e.target.style.backgroundColor = paintstr;
+    if (mousePressed) e.target.style.backgroundColor = penclr.value;
 });
 squares.addEventListener("mousedown", (e) => {
-    e.target.style.backgroundColor = paintstr;
+    e.target.style.backgroundColor = penclr.value;
     mousePressed = true;
+    console.log(penclr.value);
 });
 squares.addEventListener("mouseup", () => {
     mousePressed = false;
 });
 
-
-
-
+// reset the board with the new number of squares
 let btn = document.getElementById('reset_board');
 let size = document.getElementById('dimn');
 btn.onclick = () => {
@@ -41,7 +40,6 @@ function SetupBoard() {
     const boarddiv = document.getElementById('board_div');
     // remove all the child divs - in case being called for 2nd time
     boarddiv.innerHTML = '';
-    console.log(boarddiv.clientWidth);
     lengthstr = boarddiv.clientWidth / SIZE + "px";
     console.log(lengthstr);
 
@@ -52,7 +50,6 @@ function SetupBoard() {
         rowdiv.setAttribute("id",divid);
         rowdiv.style.display = "flex";
         rowdiv.style.flexDirection ="row";
-        console.log ("rowdiv:"+divid);
 
         for (j=0;j<SIZE;j++) {
             const div=document.createElement("div");
@@ -63,32 +60,9 @@ function SetupBoard() {
             div.style.width = lengthstr;
             div.style.height = lengthstr;
             
-            
-            //div.style.width = toString(500/SIZE) + "px";
-            //div.style.height = toString(500/SIZE) + "px";
-            console.log("sqdiv:"+divid)
             rowdiv.appendChild(div);
         }
         boarddiv.appendChild(rowdiv);
     }
-    //body.appendChild(boarddiv);
 }
 
-/* sample code to borrow
-
-        const div = document.createElement("div");
-        const btnpa = document.createElement("button");
-
-        div.setAttribute("id","playagaindiv");
-        div.setAttribute("class","resultdivs");
-        div.style.display = "flex";
-        div.style.alignItems = "center";
-        div.style.justifyContent = "center";
-        btnpa.textContent = "Play again";
-        btnpa.style.width = "200px";
-        btnpa.addEventListener('click', Restart);
-        
-        div.appendChild(btnpa);
-        body.appendChild(div);
-
-*/
